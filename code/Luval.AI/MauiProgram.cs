@@ -1,4 +1,9 @@
-﻿namespace Luval.AI
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Net;
+using System.Security;
+
+namespace Luval.AI
 {
     public static class MauiProgram
     {
@@ -14,6 +19,15 @@
                 });
 
             return builder.Build();
+        }
+
+        private static async Task<SecureString> GetApiKey()
+        {
+            if(!await FileSystem.AppPackageFileExistsAsync("Secure/OpenAIKey.txt")) return null;
+
+            using var stream = await FileSystem.OpenAppPackageFileAsync("Secure/OpenAIKey.txt");
+            using var reader = new StreamReader(stream);
+            return new NetworkCredential("", reader.ReadToEnd()).SecurePassword;
         }
     }
 }
