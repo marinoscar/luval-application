@@ -11,7 +11,7 @@ namespace Luval.OpenAI.Models
         public ChatMessage() : base()
         {
         }
-        public string ClientText { get; set; }
-        public string Response { get; set; }
+        public string Content { get; set; }
+        public bool IsResponse { get; set; }
     }
 }

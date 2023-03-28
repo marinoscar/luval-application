@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Luval.AI.MainPage">
+             x:Class="Luval.AI.MainPage"
+             xmlns:models="clr-namespace:Luval.OpenAI.Models;assembly=Luval.OpenAI"
+             xmlns:viewmodel="clr-namespace:Luval.AI.ViewModels"
+             x:DataType="viewmodel:ChatViewModel">
 
-    <ScrollView>
+    <!--<ScrollView>
         <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
@@ -36,6 +39,29 @@
                 HorizontalOptions="Center" />
 
         </VerticalStackLayout>
-    </ScrollView>
+    </ScrollView>-->
+
+    <Grid RowDefinitions="*, 125"
+          ColumnDefinitions=".75*, 0.25*">
+        <ActivityIndicator x:Name="ActivityIndicator"  IsRunning="{Binding IsRunning}" ></ActivityIndicator>
+        <CollectionView Grid.Row="0" Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Messages}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type x:Char}">
+                    
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Frame Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid ColumnDefinitions="*, Auto">
+                <Editor Placeholder="Enter text" BackgroundColor="Gray" AutoSize="TextChanges">
+                    
+                </Editor>
+                <Grid Grid.Column="1">
+                    <ImageButton Source="send.png"></ImageButton>
+                </Grid>
+            </Grid>
+        </Frame>
+    </Grid>
 
 </ContentPage>

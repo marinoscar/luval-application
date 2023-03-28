@@ -49,16 +49,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\search.png" />
+	  <None Remove="Resources\Images\send.png" />
 	  <None Remove="Resources\Raw\secure.json" />
 	  <None Remove="Resources\Raw\Secure\OpenAIKey.txt" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0-preview1" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Luval.OpenAI\Luval.OpenAI.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="ChatPage.xaml.cs">
+	    <DependentUpon>ChatPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 </Project>
