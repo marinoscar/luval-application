@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Luval.AI.MainPage"
-             xmlns:models="clr-namespace:Luval.OpenAI.Models;assembly=Luval.OpenAI"
+             xmlns:model="clr-namespace:Luval.OpenAI.Models;assembly=Luval.OpenAI" 
              xmlns:viewmodel="clr-namespace:Luval.AI.ViewModels"
              x:DataType="viewmodel:ChatViewModel">
 
@@ -43,22 +43,28 @@
 
     <Grid RowDefinitions="*, 125"
           ColumnDefinitions=".75*, 0.25*">
-        <ActivityIndicator x:Name="ActivityIndicator"  IsRunning="{Binding IsRunning}" ></ActivityIndicator>
+        <ActivityIndicator x:Name="ActivityIndicator"  IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}"
+                           HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" 
+                           Grid.ColumnSpan="2" Grid.RowSpan="2"/>
         <CollectionView Grid.Row="0" Grid.ColumnSpan="2"
                         ItemsSource="{Binding Messages}">
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type x:Char}">
-                    
+                <DataTemplate x:DataType="{x:Type model:ChatMessage}">
+                    <Grid Padding="10">
+                        <Frame>
+                            <Label Text="{Binding Content}"/>
+                        </Frame>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
         <Frame Grid.Row="1" Grid.ColumnSpan="2">
             <Grid ColumnDefinitions="*, Auto">
-                <Editor Placeholder="Enter text" BackgroundColor="Gray" AutoSize="TextChanges">
-                    
-                </Editor>
+                <Editor Placeholder="Enter text" BackgroundColor="Gray" 
+                        AutoSize="TextChanges" Text="{Binding Query}" />
                 <Grid Grid.Column="1">
-                    <ImageButton Source="send.png"></ImageButton>
+                    <!--<ImageButton Source="send.png" Command="{Binding SubmitCommand}" IsEnabled="{Binding IsRunning}"></ImageButton>-->
+                    <Button Text="Send" Command="{Binding SubmitCommand}" IsEnabled="True"/>
                 </Grid>
             </Grid>
         </Frame>

@@ -20,6 +20,7 @@ namespace Luval.AI
                 });
 
             builder.Services.AddSingleton<SecureString>(GetApiKey().Result);
+            builder.Services.AddSingleton<MainPage>();
 
             return builder.Build();
         }
@@ -28,7 +29,7 @@ namespace Luval.AI
         {
             if(!await FileSystem.AppPackageFileExistsAsync("Secure/OpenAIKey.txt")) return null;
 
-            using var stream = await FileSystem.OpenAppPackageFileAsync("Secure/OpenAIKey.txt");
+            using var stream = await FileSystem.OpenAppPackageFileAsync("Secure\\OpenAIKey.txt");
             using var reader = new StreamReader(stream);
             return new NetworkCredential("", reader.ReadToEnd()).SecurePassword;
         }

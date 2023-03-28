@@ -96,6 +96,7 @@ namespace Luval.AI.ViewModels
             Messages.Add(Response);
             try
             {
+                IsRunning = true;
                 response = ChatManager.RunPrompt(Query).Result;
                 Response.Content = response;
             }

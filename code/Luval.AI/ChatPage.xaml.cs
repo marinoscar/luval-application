@@ -11,10 +11,13 @@ namespace Luval.AI
         public MainPage(SecureString apiKey)
         {
             InitializeComponent();
+
             ChatViewModel = new ChatViewModel(apiKey);
             ChatViewModel.StreamingStarted += ChatViewModel_StreamingStarted;
             ChatViewModel.StreamingEnded += ChatViewModel_StreamingEnded;
             ChatViewModel.StreamingException += ChatViewModel_StreamingException;
+
+            BindingContext = ChatViewModel;
         }
 
         private void ChatViewModel_StreamingException(object sender, ExceptionEventArgs e)
